@@ -46,7 +46,14 @@ post '/continue.json' do
 
   stop = get_et_info('sc', answer)
 
-  t.say(:value => stop)
+  if session[:network] == "SMS"
+    t.message({
+        :to => session[:from],
+        :network => "SMS",
+        :say => {:value => stop}})
+  else
+    t.say(:value => stop)
+  end
 
   t.response
 
