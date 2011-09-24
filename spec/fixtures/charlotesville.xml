@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<RoutePositionET xmlns="urn:connexionz-co-nz">
+  <Content Expires="2011-09-18T00:05:31-04:00" MaxArrivalScope="30" />
+  <Platform PlatformTag="37" Name="Alderman Road opposite Gooch Houses">
+    <Route RouteNo="ULA" Name="Inner Loop">
+      <Destination Name="University Loop via Stadium">
+        <Trip ETA="1" />
+        <Trip ETA="16" />
+      </Destination>
+    </Route>
+  </Platform>
+</RoutePositionET>

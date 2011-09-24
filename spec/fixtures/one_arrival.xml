@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<RoutePositionET xmlns="urn:connexionz-co-nz">
+  <Content Expires="2011-09-15T18:35:31-07:00" MaxArrivalScope="30" />
+  <Platform PlatformTag="453" Name="McBean Pky &amp; Bridgeport Ln">
+    <Route RouteNo="2" Name="Whites Cyn/Val Verde">
+      <Destination Name="Val Verde">
+        <Trip ETA="20" WheelchairAccess="true" />
+      </Destination>
+    </Route>
+  </Platform>
+</RoutePositionET>

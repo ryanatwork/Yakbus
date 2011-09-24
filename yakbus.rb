@@ -102,3 +102,19 @@ get '/' do
   haml :root
 end
 
+get '/sc/:name' do
+   #matches "GET /sc/19812"
+   get_et_info('sc',params[:name])
+ end
+
+ get '/va/:name' do
+   #matches "GET /va/41215"
+   get_et_info('va',params[:name])
+ end
+
+get '/char/:name' do
+   #matches "GET /char/19812"
+   get_et_info('char',params[:name])
+ end
+
+
