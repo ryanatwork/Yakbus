@@ -53,13 +53,22 @@ post '/continue.json' do
         :to => session[:from],
         :network => "SMS",
         :say => {:value => stop}})
+    t.hangup
   else
     t.say(:value => stop)
   end
 
+  t.on  :event => 'hangup', :next => '/hangup.json'
+
   t.response
 
 end
+
+post '/hangup.json' do
+  v = Tropo::Generator.parse request.env["rack.input"].read
+  puts " Call complete (CDR received). Call duration: #{v[:result][:session_duration]} second(s)"
+end
+
 
 def get_et_info(location,platform)
 
