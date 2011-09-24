@@ -2,6 +2,35 @@ require File.dirname(__FILE__) + '/spec_helper'
 
 describe 'Yakbus Application' do
 
+  describe '/index.json' do
+    it "should respond to an incoming text message" do
+      json = '{
+                "session":{
+                  "id":"1aa06515183223ec0894039c2af433f2",
+                  "accountId":"33932",
+                  "timestamp":"2010-02-18T19:07:36.375Z",
+                  "userType":"HUMAN",
+                  "initialText":"10246",
+                  "to":{
+                    "id":"9991427645",
+                    "name":"unknown",
+                    "channel":"TEXT",
+                    "network":"SMS"
+                      },
+                  "from":{
+                    "id":"16615551234",
+                    "name":null,
+                    "channel":"TEXT",
+                    "network":"SMS"
+                      }
+                  }
+            }'
+      post '/index.json',json
+      last_response.body.should == "{\"tropo\":[{\"ask\":{\"name\":\"initial_text\",\"choices\":{\"value\":\"[ANY]\"}}},{\"on\":{\"event\":\"continue\",\"next\":\"/continue.json\"}}]}"
+    end
+  end
+
+
   describe "the home page" do
     it "Should return the home page" do
       get '/'
