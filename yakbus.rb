@@ -9,6 +9,8 @@ use Rack::Session::Pool
 
 post '/index.json' do
 
+  v = Tropo::Generator.parse request.env["rack.input"].read
+
   session[:from] = v[:session][:from]
   session[:network] = v[:session][:to][:network]
   session[:channel] = v[:session][:to][:channel]
