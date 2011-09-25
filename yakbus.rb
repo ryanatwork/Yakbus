@@ -4,8 +4,9 @@ require 'haml'
 require 'tropo-webapi-ruby'
 require 'json'
 
-#Manage the web session coookies
-use Rack::Session::Pool
+set :sender_phone, ENV['SMS_PHONE']
+set :va_phone, ENV['VA_PHONE']
+set :char_phone, ENV['CHAR_PHONE']
 
 post '/index.json' do
 
