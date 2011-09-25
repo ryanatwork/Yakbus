@@ -3,7 +3,7 @@
 YAKB.us is a real time SMS and Voice notification system using Tropo for the Connexionz API
 
 ## <a name="ci">Continuous Integration</a>
-[![Build Status](https://secure.travis-ci.org/ryanatwork/yakbus.png)](http://travis-ci.org/ryanatwork/yakbus)
+[![Build Status](https://secure.travis-ci.org/ryanatwork/Yakbus.png)](http://travis-ci.org/ryanatwork/Yakbus)
 
 ## <a name="demo">Demo</a>
 You can see a running version of the application at
