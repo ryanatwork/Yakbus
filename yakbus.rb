@@ -17,16 +17,10 @@ post '/index.json' do
 
   t = Tropo::Generator.new
 
-  if v[:session][:initial_text]
-      # Add an 'ask' WebAPI method to the JSON response with appropriate options
-      t.ask :name => 'initial_text', :choices => { :value => "[ANY]"}
-      session[:stop_number] = v[:session][:initial_text]
-  else
-    t.ask :name => 'digit',
+  t.ask :name => 'digit',
         :timeout => 60,
         :say => {:value => "Enter the five digit bus stop number"},
         :choices => {:value => "[5 DIGITS]"}
-  end
 
   t.on :event => 'continue', :next => '/continue.json'
 
@@ -40,23 +34,13 @@ post '/continue.json' do
 
   t = Tropo::Generator.new
 
-  if session[:stop_number]
-    answer = session[:stop_number]
-  else
-    answer = v[:result][:actions][:digit][:value]
-  end
+  answer = v[:result][:actions][:digit][:value]
 
   stop = get_et_info('sc', answer)
 
-  if session[:network] == "SMS"
-    t.message({
-        :to => session[:from],
-        :network => "SMS",
-        :say => {:value => stop}})
-    t.hangup
-  else
-    t.say(:value => stop)
-  end
+  t.say(:value => stop)
+
+  t.hangup
 
   t.on  :event => 'hangup', :next => '/hangup.json'
 
