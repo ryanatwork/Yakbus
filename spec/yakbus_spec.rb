@@ -92,6 +92,22 @@ describe 'Yakbus Application' do
     end
   end
 
+  describe "hangup.json" do
+    it "should return the hangup info" do
+      json = '{"result":
+                {"sessionId":"d7a7f84ee0b497e73d152a62c99b1fc9",
+                  "callId":"abc123",
+                  "state":"DISCONNECTED",
+                  "sessionDuration":22,
+                  "sequence":2,
+                  "complete":true,
+                  "error":null
+                  }
+              }'
+    post '/hangup.json', json
+    last_response.should be_ok
+    end
+  end
 
   describe "the home page" do
     it "Should return the home page" do
