@@ -27,7 +27,7 @@ describe 'Yakbus Application' do
               }'
 
       post '/index.json',json
-      last_response.body.should == "{\"tropo\":[{\"ask\":{\"name\":\"digit\",\"timeout\":60,\"say\":{\"value\":\"Enter the five digit bus stop number\"},\"choices\":{\"value\":\"[5 DIGITS]\"}}},{\"on\":{\"event\":\"continue\",\"next\":\"/continue.json\"}}]}"
+      last_response.body.should == "{\"tropo\":[{\"say\":[{\"value\":\"Welcome to yak bus\"}]},{\"ask\":{\"name\":\"digit\",\"timeout\":60,\"say\":{\"value\":\"Enter the five digit bus stop number\"},\"choices\":{\"value\":\"[5 DIGITS]\"}}},{\"on\":{\"event\":\"continue\",\"next\":\"/continue.json\"}}]}"
     end
   end
 

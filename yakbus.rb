@@ -14,6 +14,8 @@ post '/index.json' do
 
   t = Tropo::Generator.new
 
+  t.say "Welcome to yak bus"
+
   t.ask :name => 'digit',
         :timeout => 60,
         :say => {:value => "Enter the five digit bus stop number"},
