@@ -55,7 +55,7 @@ post '/next.json' do
                 Press 1 or say 'yes'; Press 2 or say 'no' to conclude this session."}],
         :choices => { :value => "true(1,yes), false(2,no)"}
 
-    t.on  :event => 'continue', :next => '/incoming.json'
+    t.on  :event => 'continue', :next => '/index.json'
     t.on  :event => 'hangup', :next => '/hangup.json'
 
   t.response
