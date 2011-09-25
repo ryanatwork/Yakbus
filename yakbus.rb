@@ -52,8 +52,8 @@ post '/next.json' do
   t.ask :name => 'next', :bargein => true, :timeout => 60, :attempts => 1,
         :say => [{:event => "nomatch:1", :value => "That wasn't a valid answer. "},
                 {:value => "Would you like hear another bus stop?
-                Press 1 or say 'yes'; Press 2 or say 'no' to conclude this session."}],
-        :choices => { :value => "true(1,yes), false(2,no)"}
+                Press 1 for yes; Press 2 to end this call."}],
+        :choices => { :value => "true(1), false(2)"}
 
     t.on  :event => 'continue', :next => '/index.json'
     t.on  :event => 'hangup', :next => '/hangup.json'
