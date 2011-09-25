@@ -62,6 +62,24 @@ describe 'Yakbus Application' do
     end
   end
 
+  describe '/next.json' do
+    it "should respond to true or false" do
+      json = '{"result":
+                {"sessionId":"97365531b728cc3e2a18dcc48119289a",
+                  "callId":"abc123",
+                  "state":"ANSWERED",
+                  "sessionDuration":23,
+                  "sequence":2,"complete":true,
+                  "error":null
+                  }
+              }'
+
+    post '/next.json', json
+    last_response.body.should == "{\"tropo\":[{\"ask\":{\"name\":\"next\",\"bargein\":true,\"timeout\":60,\"attempts\":1,\"say\":[{\"event\":\"nomatch:1\",\"value\":\"That wasn't a valid answer. \"},{\"value\":\"Would you like hear another bus stop?\\n                Press 1 for yes; Press 2 to end this call.\"}],\"choices\":{\"value\":\"true(1), false(2)\"}}},{\"on\":{\"event\":\"continue\",\"next\":\"/index.json\"}},{\"on\":{\"event\":\"hangup\",\"next\":\"/hangup.json\"}}]}"
+
+    end
+  end
+
   describe '/sms_incoming.json' do
     it "should respond to an incoming text message" do
       json = '{
