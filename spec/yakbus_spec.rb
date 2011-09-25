@@ -58,7 +58,7 @@ describe 'Yakbus Application' do
         to_return(:status => 200, :body => fixture("route_et.xml"))
 
       post '/continue.json', json
-      last_response.body.should == "{\"tropo\":[{\"say\":[{\"value\":\"Route 1-Destination Castaic-ETA 24 minutes Route 4-Destination LARC-ETA 19 minutes Route 6-Destination Shadow Pines-ETA 17 minutes Route 14-Destination Plum Cyn-ETA 11 minutes \"}]},{\"hangup\":null},{\"on\":{\"event\":\"hangup\",\"next\":\"/hangup.json\"}}]}"
+      last_response.body.should == "{\"tropo\":[{\"say\":[{\"value\":\"Route 1-Destination Castaic-ETA 24 minutes Route 4-Destination LARC-ETA 19 minutes Route 6-Destination Shadow Pines-ETA 17 minutes Route 14-Destination Plum Cyn-ETA 11 minutes \"}]},{\"on\":{\"event\":\"continue\",\"next\":\"/next.json\"}}]}"
     end
   end
 

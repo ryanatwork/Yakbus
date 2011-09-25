@@ -39,12 +39,26 @@ post '/continue.json' do
 
   t.say(:value => stop)
 
-  t.hangup
-
-  t.on  :event => 'hangup', :next => '/hangup.json'
+  t.on  :event => 'continue', :next => '/next.json'
 
   t.response
 
+end
+
+post '/next.json' do
+  v = Tropo::Generator.parse request.env["rack.input"].read
+
+  t = Tropo::Generator.new
+  t.ask :name => 'next', :bargein => true, :timeout => 60, :attempts => 1,
+        :say => [{:event => "nomatch:1", :value => "That wasn't a valid answer. "},
+                {:value => "Would you like hear another bus stop?
+                Press 1 or say 'yes'; Press 2 or say 'no' to conclude this session."}],
+        :choices => { :value => "true(1,yes), false(2,no)"}
+
+    t.on  :event => 'continue', :next => '/incoming.json'
+    t.on  :event => 'hangup', :next => '/hangup.json'
+
+  t.response
 end
 
 post '/sms_incoming.json' do
