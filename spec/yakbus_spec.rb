@@ -30,6 +30,36 @@ describe 'Yakbus Application' do
     end
   end
 
+  describe '/sms_incoming.json' do
+    it "should respond to an incoming text message" do
+      json = '{
+                "session":{
+                  "id":"1aa06515183223ec0894039c2af433f2",
+                  "accountId":"33932",
+                  "timestamp":"2010-02-18T19:07:36.375Z",
+                  "userType":"HUMAN",
+                  "initialText":"10246",
+                  "to":{
+                    "id":"9991427645",
+                    "name":"unknown",
+                    "channel":"TEXT",
+                    "network":"SMS"
+                      },
+                  "from":{
+                    "id":"16615551234",
+                    "name":null,
+                    "channel":"TEXT",
+                    "network":"SMS"
+                      }
+                  }
+            }'
+      stub_request(:get, "http://12.233.207.166/rtt/public/utility/file.aspx?contenttype=SQLXML&Name=RoutePositionET.xml&platformno=10246").
+        to_return(:status => 200, :body => fixture("route_et.xml"))
+      post '/sms_incoming.json',json
+      last_response.body.should == "{\"tropo\":[{\"say\":[{\"value\":\"Route 1-Destination Castaic-ETA 24 minutes Route 4-Destination LARC-ETA 19 minutes Route 6-Destination Shadow Pines-ETA 17 minutes Route 14-Destination Plum Cyn-ETA 11 minutes \"}]},{\"hangup\":null},{\"on\":{\"event\":\"hangup\",\"next\":\"/hangup.json\"}}]}"
+    end
+  end
+
 
   describe "the home page" do
     it "Should return the home page" do
