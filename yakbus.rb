@@ -44,11 +44,6 @@ post '/continue.json' do
 
 end
 
-post '/hangup.json' do
-  v = Tropo::Generator.parse request.env["rack.input"].read
-  puts " Call complete (CDR received). Call duration: #{v[:result][:session_duration]} second(s)"
-end
-
 post '/sms_incoming.json' do
 
   t = Tropo::Generator.new
@@ -67,6 +62,11 @@ post '/sms_incoming.json' do
 
   t.response
 
+end
+
+post '/hangup.json' do
+  v = Tropo::Generator.parse request.env["rack.input"].read
+  puts " Call complete (CDR received). Call duration: #{v[:result][:session_duration]} second(s)"
 end
 
 def get_et_info(location,platform)
