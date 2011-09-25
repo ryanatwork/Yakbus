@@ -19,7 +19,7 @@ post '/index.json' do
   t.ask :name => 'digit',
         :timeout => 60,
         :say => {:value => "Enter the five digit bus stop number"},
-        :choices => {:value => "[5 DIGITS]"}
+        :choices => {:value => "[5 DIGITS]",:mode => "dtmf"}
 
   t.on :event => 'continue', :next => '/continue.json'
 
