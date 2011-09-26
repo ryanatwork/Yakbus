@@ -121,8 +121,6 @@ post '/continue_spanish.json' do
     stop = get_et_info('sc', answer)
   end
 
-  stop = stop.tr('Destination', 'destino')
-  stop = stop.tr('Route', 'ruta')
   if stop == "No bus stop found"
     stop = "No encuentra la parada de autobús"
   elsif stop == "No arrivals for next 30 minutes"
@@ -161,8 +159,6 @@ post '/next_spanish.json' do
   t.response
 end
 
-
-
 post '/sms_incoming.json' do
 
   t = Tropo::Generator.new
@@ -190,6 +186,46 @@ post '/sms_incoming.json' do
   t.response
 
 end
+
+post '/spanish_sms.json' do
+
+  t = Tropo::Generator.new
+
+  v = Tropo::Generator.parse request.env["rack.input"].read
+
+  from = v[:session][:to][:id]
+  initial_text = v[:session][:initial_text]
+
+
+  if from == settings.spanish_va.tr('+','')
+    stop = get_et_info('va', initial_text)
+  elsif from == settings.spanish_chare.tr('+','')
+    stop = get_et_info('char', initial_text)
+  else
+    stop = get_et_info('sc', initial_text)
+  end
+
+  if stop == "No bus stop found"
+    stop = "No encuentra la parada de autobús"
+  elsif stop == "No arrivals for next 30 minutes"
+    stop = "No hay llegadas para los próximos 30 minutos"
+  elsif stop == "No arrival for next 45 minutes"
+    stop = "No hay llegadas para los próximos 45 minutos"
+  else
+    stop = stop.tr('Destination', 'destino')
+    stop = stop.tr('Route', 'ruta')
+  end
+
+  t.say(:value => stop)
+
+  t.hangup
+
+  t.on  :event => 'hangup', :next => '/hangup.json'
+
+  t.response
+
+end
+
 
 post '/hangup.json' do
   v = Tropo::Generator.parse request.env["rack.input"].read
