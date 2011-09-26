@@ -62,6 +62,23 @@ post '/continue.json' do
 
 end
 
+post '/next.json' do
+  v = Tropo::Generator.parse request.env["rack.input"].read
+
+  t = Tropo::Generator.new
+  t.ask :name => 'next', :bargein => true, :timeout => 60, :attempts => 1,
+        :say => [{:event => "nomatch:1", :value => "That wasn't a valid answer. "},
+                {:value => "Would you like hear another bus stop?
+                Press 1 for yes; Press 2 to end this call."}],
+        :choices => { :value => "true(1), false(2)"}
+
+    t.on  :event => 'continue', :next => '/index.json'
+    t.on  :event => 'hangup', :next => '/hangup.json'
+
+  t.response
+end
+
+
 post '/spanish.json' do
 
   v = Tropo::Generator.parse request.env["rack.input"].read
@@ -125,21 +142,26 @@ post '/continue_spanish.json' do
 
 end
 
-post '/next.json' do
+post '/next_spanish.json' do
   v = Tropo::Generator.parse request.env["rack.input"].read
 
   t = Tropo::Generator.new
   t.ask :name => 'next', :bargein => true, :timeout => 60, :attempts => 1,
-        :say => [{:event => "nomatch:1", :value => "That wasn't a valid answer. "},
-                {:value => "Would you like hear another bus stop?
-                Press 1 for yes; Press 2 to end this call."}],
-        :choices => { :value => "true(1), false(2)"}
+        :say => [{:event => "nomatch:1", :value => "Que no era una respuesta válida. "},
+                {:value => "¿Te gustaría escuchar otra parada de autobús?
+                  Presione 1 para sí, Pulse 2 para poner fin a esta convocatoria."}],
+        :choices => { :value => "true(1), false(2)"},
+        :voice => "esperanza",
+        :recognizer => "es-mx"
 
-    t.on  :event => 'continue', :next => '/index.json'
+
+    t.on  :event => 'continue', :next => '/spanish.json'
     t.on  :event => 'hangup', :next => '/hangup.json'
 
   t.response
 end
+
+
 
 post '/sms_incoming.json' do
 
