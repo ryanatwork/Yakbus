@@ -199,7 +199,7 @@ post '/spanish_sms.json' do
 
   if from == settings.spanish_va.tr('+','')
     stop = get_et_info('va', initial_text)
-  elsif from == settings.spanish_chare.tr('+','')
+  elsif from == settings.spanish_char.tr('+','')
     stop = get_et_info('char', initial_text)
   else
     stop = get_et_info('sc', initial_text)
