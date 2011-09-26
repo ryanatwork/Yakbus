@@ -79,7 +79,7 @@ post '/spanish.json' do
         :timeout => 60,
         :say => {:value => "Introduzca los cinco dígitos del número parada de autobús"},
         :voice => "esperanza",
-        :choices => {:value => "[5 DIGITS]",:mode => "dtmf"},
+        :choices => {:value => "[5 DIGITS]"},
         :recognizer => "es-mx"
 
   t.on :event => 'continue', :next => '/continue_spanish.json'
