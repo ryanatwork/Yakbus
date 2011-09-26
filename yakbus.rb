@@ -7,6 +7,9 @@ require 'json'
 set :sender_phone, ENV['SC_PHONE']
 set :va_phone, ENV['VA_PHONE']
 set :char_phone, ENV['CHAR_PHONE']
+set :spanish_sc, ENV['SPANISH_SC']
+set :spanish_va, ENV['SPANISH_VA']
+set :spanish_char, ENV['SPANISH_CHAR']
 
 use Rack::Session::Pool
 
@@ -45,6 +48,56 @@ post '/continue.json' do
   if session[:to_phone] == settings.va_phone
     stop = get_et_info('va', answer)
   elsif session[:to_phone] == settings.char_phone
+    stop = get_et_info('char', answer)
+  else
+    stop = get_et_info('sc', answer)
+  end
+
+  t.say(:value => stop)
+
+  t.on  :event => 'continue', :next => '/next.json'
+
+  t.response
+
+end
+
+post '/spanish.json' do
+
+  v = Tropo::Generator.parse request.env["rack.input"].read
+
+  session[:from] = v[:session][:from]
+  session[:to_phone] = v[:session][:to][:name]
+  session[:network] = v[:session][:to][:network]
+  session[:channel] = v[:session][:to][:channel]
+
+  t = Tropo::Generator.new
+
+  t.say "Bienvenido al bus yak"
+
+  t.ask :name => 'digit',
+        :timeout => 60,
+        :say => {:value => "Introduzca los cinco digitos del numero parada de autobus"},
+        :voice => "soledad",
+        :choices => {:value => "[5 DIGITS]",:mode => "dtmf"},
+        :recognizer => "es-mx"
+
+  t.on :event => 'continue', :next => '/continue_spanish.json'
+
+  t.response
+
+end
+
+post '/continue_spanish.json' do
+
+  v = Tropo::Generator.parse request.env["rack.input"].read
+
+  t = Tropo::Generator.new
+
+  answer = v[:result][:actions][:digit][:value]
+
+  if session[:to_phone] == settings.spanish_va
+    stop = get_et_info('va', answer)
+  elsif session[:to_phone] == settings.spanish_char
     stop = get_et_info('char', answer)
   else
     stop = get_et_info('sc', answer)
