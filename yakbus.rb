@@ -80,9 +80,16 @@ post '/sms_incoming.json' do
 
   v = Tropo::Generator.parse request.env["rack.input"].read
 
-  initialText = v[:session][:initial_text]
+  from = v[:session][:to][:id]
+  initial_text = v[:session][:initial_text]
 
-  stop = get_et_info('sc', initialText)
+  if from == settings.va_phone
+    stop = get_et_info('va', initial_text)
+  elsif from == settings.char_phone
+    stop = get_et_info('char', initial_text)
+  else
+    stop = get_et_info('sc', initial_text)
+  end
 
   t.say(:value => stop)
 
