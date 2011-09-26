@@ -104,9 +104,22 @@ post '/continue_spanish.json' do
     stop = get_et_info('sc', answer)
   end
 
-  t.say(:value => stop)
+  stop = stop.tr('Destination', 'destino')
+  stop = stop.tr('Route', 'ruta')
+  if stop == "No bus stop found"
+    stop = "No encuentra la parada de autobús"
+  elsif stop == "No arrivals for next 30 minutes"
+    stop = "No hay llegadas para los próximos 30 minutos"
+  elsif stop == "No arrival for next 45 minutes"
+    stop = "No hay llegadas para los próximos 45 minutos"
+  else
+    stop = stop.tr('Destination', 'destino')
+    stop = stop.tr('Route', 'ruta')
+  end
 
-  t.on  :event => 'continue', :next => '/next.json'
+  t.say(:value => stop, :voice =>"esperanza")
+
+  t.on  :event => 'continue', :next => '/next_spanish.json'
 
   t.response
 
