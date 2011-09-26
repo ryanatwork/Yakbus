@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'sinatra'
 require 'connexionz'
 require 'haml'
@@ -72,12 +73,12 @@ post '/spanish.json' do
 
   t = Tropo::Generator.new
 
-  t.say "Bienvenido al bus yak"
+  t.say "Bienvenido al bus yak", :voice =>"esperanza"
 
   t.ask :name => 'digit',
         :timeout => 60,
-        :say => {:value => "Introduzca los cinco digitos del numero parada de autobus"},
-        :voice => "soledad",
+        :say => {:value => "Introduzca los cinco dígitos del número parada de autobús"},
+        :voice => "esperanza",
         :choices => {:value => "[5 DIGITS]",:mode => "dtmf"},
         :recognizer => "es-mx"
 
