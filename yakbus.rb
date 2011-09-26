@@ -4,13 +4,20 @@ require 'haml'
 require 'tropo-webapi-ruby'
 require 'json'
 
-set :sender_phone, ENV['SMS_PHONE']
+set :sender_phone, ENV['SC_PHONE']
 set :va_phone, ENV['VA_PHONE']
 set :char_phone, ENV['CHAR_PHONE']
+
+use Rack::Session::Pool
 
 post '/index.json' do
 
   v = Tropo::Generator.parse request.env["rack.input"].read
+
+  session[:from] = v[:session][:from]
+  session[:to_phone] = v[:session][:to][:name]
+  session[:network] = v[:session][:to][:network]
+  session[:channel] = v[:session][:to][:channel]
 
   t = Tropo::Generator.new
 
@@ -35,7 +42,13 @@ post '/continue.json' do
 
   answer = v[:result][:actions][:digit][:value]
 
-  stop = get_et_info('sc', answer)
+  if session[:to_phone] == settings.va_phone
+    stop = get_et_info('va', answer)
+  elsif session[:to_phone] == settings.char_phone
+    stop = get_et_info('char', answer)
+  else
+    stop = get_et_info('sc', answer)
+  end
 
   t.say(:value => stop)
 

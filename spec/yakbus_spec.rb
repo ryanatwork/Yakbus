@@ -2,6 +2,13 @@ require File.dirname(__FILE__) + '/spec_helper'
 
 describe 'Yakbus Application' do
 
+  before(:all) do
+    set :sender_phone, '555-555-1212'
+    set :va_phone, '15555551234'
+    set :char_phone, '15551234567'
+  end
+
+
   describe '/index.json' do
     it "should respond to an incoming call" do
       json = '{"session":
