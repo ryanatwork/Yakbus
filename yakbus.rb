@@ -83,6 +83,9 @@ post '/sms_incoming.json' do
   from = v[:session][:to][:id]
   initial_text = v[:session][:initial_text]
 
+  #SMS doesnt start with a +1
+  from = from.tr('+','')
+
   if from == settings.va_phone
     stop = get_et_info('va', initial_text)
   elsif from == settings.char_phone
