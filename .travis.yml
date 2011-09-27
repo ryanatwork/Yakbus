@@ -1,5 +1,5 @@
+bundler_args: --without development
+
 rvm:
   - 1.9.2
   - 1.9.3
-  - rbx
-  - rbx-2.0
