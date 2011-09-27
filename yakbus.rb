@@ -206,11 +206,11 @@ post '/spanish_sms.json' do
   end
 
   if stop == "No bus stop found"
-    stop = "No encuentra la parada de autobus"
+    stop = "No encuentra la parada de autobús"
   elsif stop == "No arrivals for next 30 minutes"
-    stop = "No hay llegadas para los proximos 30 minutos"
+    stop = "No hay llegadas para los próximos 30 minutos"
   elsif stop == "No arrival for next 45 minutes"
-    stop = "No hay llegadas para los proximos 45 minutos"
+    stop = "No hay llegadas para los próximos 45 minutos"
   else
     stop = stop.tr('Destination', 'destino')
     stop = stop.tr('Route', 'ruta')
