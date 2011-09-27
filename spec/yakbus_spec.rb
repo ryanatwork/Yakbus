@@ -6,6 +6,8 @@ describe 'Yakbus Application' do
     set :sender_phone, '555-555-1212'
     set :va_phone, '+15711234567'
     set :char_phone, '15551234567'
+    set :spanish_va, '+15715551234'
+    set :spanish_char, '+14345551234'
   end
 
 
@@ -144,6 +146,36 @@ describe 'Yakbus Application' do
         to_return(:status => 200, :body => fixture("va_single.xml"))
       post '/sms_incoming.json',json
       last_response.body.should == "{\"tropo\":[{\"say\":[{\"value\":\"Route 87 -Destination Shirlington Station -ETA 17 min\"}]},{\"hangup\":null},{\"on\":{\"event\":\"hangup\",\"next\":\"/hangup.json\"}}]}"
+    end
+  end
+
+  describe '/spanish_sms.json' do
+    it "should respond to an incoming text message for Santa Clarita" do
+      json = '{
+                "session":{
+                  "id":"1aa06515183223ec0894039c2af433f2",
+                  "accountId":"33932",
+                  "timestamp":"2010-02-18T19:07:36.375Z",
+                  "userType":"HUMAN",
+                  "initialText":"10246",
+                  "to":{
+                    "id":"155551234",
+                    "name":"unknown",
+                    "channel":"TEXT",
+                    "network":"SMS"
+                      },
+                  "from":{
+                    "id":"16615551234",
+                    "name":null,
+                    "channel":"TEXT",
+                    "network":"SMS"
+                      }
+                  }
+            }'
+      stub_request(:get, "http://12.233.207.166/rtt/public/utility/file.aspx?contenttype=SQLXML&Name=RoutePositionET.xml&platformno=10246").
+        to_return(:status => 200, :body => fixture("route_et.xml"))
+      post '/spanish_sms.json',json
+      last_response.body.should == "{\"tropo\":[{\"say\":[{\"value\":\"Ruta 1-Destino Castaic-ETA 24 minutos Ruta 4-Destino LARC-ETA 19 minutos Ruta 6-Destino Shadow Pines-ETA 17 minutos Ruta 14-Destino Plum Cyn-ETA 11 minutos \"}]},{\"hangup\":null},{\"on\":{\"event\":\"hangup\",\"next\":\"/hangup.json\"}}]}"
     end
   end
 
