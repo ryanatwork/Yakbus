@@ -128,8 +128,9 @@ post '/continue_spanish.json' do
   elsif stop == "No arrival for next 45 minutes"
     stop = "No hay llegadas para los próximos 45 minutos"
   else
-    stop = stop.tr('Destination', 'destino')
-    stop = stop.tr('Route', 'ruta')
+    stop = stop.gsub('Destination', 'Destino')
+    stop = stop.gsub('Route', 'Ruta')
+    stop = stop.gsub('minutes', 'minutos')
   end
 
   t.say(:value => stop, :voice =>"esperanza")
