@@ -60,7 +60,7 @@ GEM
     tropo-webapi-ruby (0.1.11)
       hashie (>= 0.2.0)
       json_pure (>= 1.2.0)
-    webmock (1.7.6)
+    webmock (1.7.8)
       addressable (~> 2.2, > 2.2.5)
       crack (>= 0.1.7)
 
