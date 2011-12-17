@@ -67,7 +67,7 @@ describe 'Yakbus Application' do
         to_return(:status => 200, :body => fixture("route_et.xml"))
 
       post '/continue.json', json
-      last_response.body.should == "{\"tropo\":[{\"say\":[{\"value\":\"Route 1-Destination Castaic-ETA 24 minutes Route 4-Destination LARC-ETA 19 minutes Route 6-Destination Shadow Pines-ETA 17 minutes Route 14-Destination Plum Cyn-ETA 11 minutes \"}]},{\"on\":{\"event\":\"continue\",\"next\":\"/next.json\"}}]}"
+      last_response.body.should == "{\"tropo\":[{\"say\":[{\"value\":\"1-Castaic-ETA:24 4-LARC-ETA:19 6-Shadow Pines-ETA:17 14-Plum Cyn-ETA:11\"}]},{\"on\":{\"event\":\"continue\",\"next\":\"/next.json\"}}]}"
     end
   end
 
@@ -115,7 +115,7 @@ describe 'Yakbus Application' do
       stub_request(:get, "http://12.233.207.166/rtt/public/utility/file.aspx?contenttype=SQLXML&Name=RoutePositionET.xml&platformno=10246").
         to_return(:status => 200, :body => fixture("route_et.xml"))
       post '/sms_incoming.json',json
-      last_response.body.should == "{\"tropo\":[{\"say\":[{\"value\":\"Route 1-Destination Castaic-ETA 24 minutes Route 4-Destination LARC-ETA 19 minutes Route 6-Destination Shadow Pines-ETA 17 minutes Route 14-Destination Plum Cyn-ETA 11 minutes \"}]},{\"hangup\":null},{\"on\":{\"event\":\"hangup\",\"next\":\"/hangup.json\"}}]}"
+      last_response.body.should =="{\"tropo\":[{\"say\":[{\"value\":\"1-Castaic-ETA:24 4-LARC-ETA:19 6-Shadow Pines-ETA:17 14-Plum Cyn-ETA:11\"}]},{\"hangup\":null},{\"on\":{\"event\":\"hangup\",\"next\":\"/hangup.json\"}}]}"
     end
   end
 
@@ -145,7 +145,7 @@ describe 'Yakbus Application' do
       stub_request(:get, "http://realtime.commuterpage.com/rtt/public/utility/file.aspx?Name=RoutePositionET.xml&contenttype=SQLXML&platformno=87017").
         to_return(:status => 200, :body => fixture("va_single.xml"))
       post '/sms_incoming.json',json
-      last_response.body.should == "{\"tropo\":[{\"say\":[{\"value\":\"Route 87 -Destination Shirlington Station -ETA 17 min\"}]},{\"hangup\":null},{\"on\":{\"event\":\"hangup\",\"next\":\"/hangup.json\"}}]}"
+      last_response.body.should == "{\"tropo\":[{\"say\":[{\"value\":\"87-Shirlington Station-ETA:17\"}]},{\"hangup\":null},{\"on\":{\"event\":\"hangup\",\"next\":\"/hangup.json\"}}]}"
     end
   end
 
@@ -175,7 +175,7 @@ describe 'Yakbus Application' do
       stub_request(:get, "http://12.233.207.166/rtt/public/utility/file.aspx?contenttype=SQLXML&Name=RoutePositionET.xml&platformno=10246").
         to_return(:status => 200, :body => fixture("route_et.xml"))
       post '/spanish_sms.json',json
-      last_response.body.should == "{\"tropo\":[{\"say\":[{\"value\":\"Ruta 1-Destino Castaic-ETA 24 minutos Ruta 4-Destino LARC-ETA 19 minutos Ruta 6-Destino Shadow Pines-ETA 17 minutos Ruta 14-Destino Plum Cyn-ETA 11 minutos \"}]},{\"hangup\":null},{\"on\":{\"event\":\"hangup\",\"next\":\"/hangup.json\"}}]}"
+      last_response.body.should =="{\"tropo\":[{\"say\":[{\"value\":\"1-Castaic-ETA:24 4-LARC-ETA:19 6-Shadow Pines-ETA:17 14-Plum Cyn-ETA:11\"}]},{\"hangup\":null},{\"on\":{\"event\":\"hangup\",\"next\":\"/hangup.json\"}}]}"
     end
   end
 
@@ -226,28 +226,28 @@ describe 'Yakbus Application' do
         to_return(:status => 200, :body => fixture("one_arrival.xml"))
       get '/sc/10656'
       last_response.should be_ok
-      last_response.body.should =="Route 2 -Destination Val Verde -ETA 20 min"
+      last_response.body.should == "2-Val Verde-ETA:20"
     end
 
     it "should return the time for the next arrival" do
       stub_request(:get, "http://12.233.207.166/rtt/public/utility/file.aspx?contenttype=SQLXML&Name=RoutePositionET.xml&platformno=10246").
         to_return(:status => 200, :body => fixture("route_et.xml"))
       get '/sc/10246'
-      last_response.body.should == "Route 1-Destination Castaic-ETA 24 minutes Route 4-Destination LARC-ETA 19 minutes Route 6-Destination Shadow Pines-ETA 17 minutes Route 14-Destination Plum Cyn-ETA 11 minutes "
+      last_response.body.should == "1-Castaic-ETA:24 4-LARC-ETA:19 6-Shadow Pines-ETA:17 14-Plum Cyn-ETA:11"
     end
 
     it "should return the time for the same stop with multiple arrivals" do
       stub_request(:get, "http://avlweb.charlottesville.org/rtt/public/utility/file.aspx?contenttype=SQLXML&Name=RoutePositionET.xml&platformno=10687").
         to_return(:status => 200, :body => fixture("charlotesville.xml"))
       get '/char/10687'
-      last_response.body.should == "Route ULA -Destination University Loop via Stadium -ETA 1 min 16 min "
+      last_response.body.should == "ULA-University Loop via Stadium-ETA:1,16"
     end
 
     it "should return the results for Arlington County, VA" do
       stub_request(:get, "http://realtime.commuterpage.com/rtt/public/utility/file.aspx?Name=RoutePositionET.xml&contenttype=SQLXML&platformno=87017").
           to_return(:status => 200, :body => fixture("va_single.xml"))
-      get 'va/87017'
-      last_response.body.should == "Route 87 -Destination Shirlington Station -ETA 17 min"
+      get '/va/87017'
+      last_response.body.should == "87-Shirlington Station-ETA:17"
     end
   end
 end
