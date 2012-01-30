@@ -250,5 +250,12 @@ describe 'Yakbus Application' do
       last_response.body.should == "87-Shirlington Station-ETA:17"
     end
   end
+
+    it "should return the results for Tri Delta Transit" do
+      stub_request(:get, "http://70.232.147.132/rtt/public/utility/file.aspx?Name=RoutePositionET.xml&contenttype=SQLXML&platformno=81262").
+          to_return(:status => 200, :body => fixture("tri_delta_multi.xml"))
+      get '/va/87017'
+      last_response.body.should == "392-Local-ETA:38,46"
+    end
 end
 
