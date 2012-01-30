@@ -243,6 +243,13 @@ describe 'Yakbus Application' do
       last_response.body.should == "ULA-University Loop via Stadium-ETA:1,16"
     end
 
+    it "should return the times for Tri Delta" do
+      stub_request(:get, "http://70.232.147.132/rtt/public/utility/file.aspx?contenttype=SQLXML&Name=RoutePositionET.xml&platformno=812262").
+        to_return(:status => 200, :body => fixture("tri_delta_multi.xml"))
+      get '/tri/812262'
+      last_response.body.should == "392-Eastbound Hillcrest Park & Ride-ETA:38,44"
+    end
+
     it "should return the results for Arlington County, VA" do
       stub_request(:get, "http://realtime.commuterpage.com/rtt/public/utility/file.aspx?Name=RoutePositionET.xml&contenttype=SQLXML&platformno=87017").
           to_return(:status => 200, :body => fixture("va_single.xml"))
