@@ -241,6 +241,8 @@ def get_et_info(location,platform)
       @client = Connexionz::Client.new({:endpoint => "http://realtime.commuterpage.com"})
     elsif location == "char"
       @client = Connexionz::Client.new({:endpoint => "http://avlweb.charlottesville.org"})
+    elsif location == "tri"
+      @client = Connexionz::Client.new({:endpoint => "http://70.232.147.132"})
     else
       @client = Connexionz::Client.new({:endpoint => "http://12.233.207.166"})
     end
@@ -319,5 +321,13 @@ get '/char/:name' do
    #matches "GET /char/19812"
    get_et_info('char',params[:name])
  end
+
+get '/tri/:name' do
+  #matches "GET /tri/81262"
+  get_et_info('tri',params[:name])
+end
+
+
+
 
 
