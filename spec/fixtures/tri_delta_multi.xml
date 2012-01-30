@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<RoutePositionET xmlns="urn:connexionz-co-nz">
+  <Content Expires="2012-01-29T23:18:31-08:00" MaxArrivalScope="60" />
+  <Platform PlatformTag="181" Name="Andrew Ave &amp; Power Ave">
+    <Route RouteNo="392" Name="Local">
+      <Destination Name="Eastbound Hillcrest Park &amp; Ride">
+        <Trip ETA="38" />
+        <Trip ETA="44" />
+      </Destination>
+    </Route>
+  </Platform>
+</RoutePositionET>
