@@ -8,6 +8,7 @@ describe 'Yakbus Application' do
     set :char_phone, '15551234567'
     set :spanish_va, '+15715551234'
     set :spanish_char, '+14345551234'
+    set :tri_phone, '+14155551234'
   end
 
 
@@ -146,6 +147,37 @@ describe 'Yakbus Application' do
         to_return(:status => 200, :body => fixture("va_single.xml"))
       post '/sms_incoming.json',json
       last_response.body.should == "{\"tropo\":[{\"say\":[{\"value\":\"87-Shirlington Station-ETA:17\"}]},{\"hangup\":null},{\"on\":{\"event\":\"hangup\",\"next\":\"/hangup.json\"}}]}"
+    end
+  end
+
+
+  describe '/sms_incoming.json' do
+    it "should respond to an incoming text message for Tri Delta" do
+      json = '{
+                "session":{
+                  "id":"1aa06515183223ec0894039c2af433f2",
+                  "accountId":"33932",
+                  "timestamp":"2010-02-18T19:07:36.375Z",
+                  "userType":"HUMAN",
+                  "initialText":"81262",
+                  "to":{
+                    "id":"14155551234",
+                    "name":"unknown",
+                    "channel":"TEXT",
+                    "network":"SMS"
+                      },
+                  "from":{
+                    "id":"16615551234",
+                    "name":null,
+                    "channel":"TEXT",
+                    "network":"SMS"
+                      }
+                  }
+            }'
+      stub_request(:get, "http://70.232.147.132/rtt/public/utility/file.aspx?Name=RoutePositionET.xml&contenttype=SQLXML&platformno=81262").
+        to_return(:status => 200, :body => fixture("tri_delta_multi.xml"))
+      post '/sms_incoming.json',json
+      last_response.body.should == "{\"tropo\":[{\"say\":[{\"value\":\"392-Eastbound Hillcrest Park & Ride-ETA:38,44\"}]},{\"hangup\":null},{\"on\":{\"event\":\"hangup\",\"next\":\"/hangup.json\"}}]}"
     end
   end
 
