@@ -11,6 +11,7 @@ set :char_phone, ENV['CHAR_PHONE']
 set :spanish_sc, ENV['SPANISH_SC']
 set :spanish_va, ENV['SPANISH_VA']
 set :spanish_char, ENV['SPANISH_CHAR']
+set :tri_phone, ENV['TRI_PHONE']
 
 use Rack::Session::Pool
 
@@ -50,6 +51,8 @@ post '/continue.json' do
     stop = get_et_info('va', answer)
   elsif session[:to_phone] == settings.char_phone
     stop = get_et_info('char', answer)
+  elsif session[:to_phone] == settings.tri_phone
+    stop = get_et_info('tri', answer)
   else
     stop = get_et_info('sc', answer)
   end
@@ -174,6 +177,8 @@ post '/sms_incoming.json' do
     stop = get_et_info('va', initial_text)
   elsif from == settings.char_phone.tr('+','')
     stop = get_et_info('char', initial_text)
+  elsif from == settings.tri_phone.tr('+','')
+    stop = get_et_info('tri', initial_text)
   else
     stop = get_et_info('sc', initial_text)
   end
