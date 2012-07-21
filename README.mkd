@@ -86,7 +86,6 @@ timely fashion. If critical issues for a particular implementation exist at the
 time of a major release, support for that Ruby version may be dropped.
 
 
-
 ## Credits
 [http://www.tropo.com](Tropo)
 
