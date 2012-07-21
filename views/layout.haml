@@ -1,10 +1,11 @@
-!!!
+!!! 5
 %html
   %head
     %title= "YAKB.us"
-    %link{:href => 'http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css', :rel => 'stylesheet', :type => 'text/css'}
+    %link{:href => 'http://twitter.github.com/bootstrap/assets/css/bootstrap.css', :rel => 'stylesheet', :type => 'text/css'}
+    %link{:href => 'http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css', :rel => 'stylesheet', :type => 'text/css'}
     %script{:type => "text/javascript"}
       var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-8063472-4']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();
   %body
     %div.container
-      #content= yield
+      = yield

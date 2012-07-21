@@ -2,93 +2,102 @@
   %h1 YAKB.us
   %br
   .row
-    .span6
+    .span4
       %p
         YAKB.us is a real time bus arrival notification system using Voice and SMS.
         Bus stop information is available in both English and Spanish.
       %br
-      %a{:class => "btn primary large",:href => '#use'} Learn more »
-    .span5
+      %a{:class => "btn btn-large btn-primary",:href => '#use'} Learn more »
+    .span6
       %img.thumbnail{:src => 'sms_sample_sc.png'}/
 %br
 %a{:name => 'use'}
-%h1 How to Use
-%p YAKB.us provides both English and Spanish arrival times.
-%p Call or send an SMS to the number below for your Transit Agency.
-%p For arrival times enter the 5 digit bus stop number that is displayed at the stop.
+.row
+  .span12
+    %h1 How to Use
+    %p YAKB.us provides both English and Spanish arrival times.
+    %p Call or send an SMS to the number below for your Transit Agency.
+    %p For arrival times enter the 5 digit bus stop number that is displayed at the stop.
 
-%p Standard telephone and SMS rates apply
+    %p Standard telephone and SMS rates apply
 
 %br
 %h1 Transit Agencies
-%dl
-  %dt
+.row
+  .span12
     %h3
       %a{:href => 'http://www.arlingtontransit.com/', :target => '_blank'} Arlington Transit
       &mdash; Arlington County, VA
     %br
-    %dt For English
-    %dd Call or text the bus stop number to <strong>(571) 762-1288</strong> (example 41215)
-    %ul.media-grid
-      %li
-        %a{:href => 'va_english.png'}
+
+.row
+  .span5
+    %h4 For English
+    %p Call or text the bus stop number to <strong>(571) 762-1288</strong> (example 41215)
+    %ul.thumbnails
+      %li.span4
+        %a.thumbnail{:href => 'va_english.png'}
           %img.thumbnail{:src => 'va_english.png'}
 
-    %br
-    %dt For Spanish
-    %dd Llame o de texto el número de la parada de autobús <strong>(571) 762-1289</strong> (por ejemplo, 41215)
-    %ul.media-grid
-      %li
-        %a{:href => 'va_spanish.png'}
+  .span6
+    %h4 For Spanish
+    %p Llame o de texto el número de la parada de autobús <strong>(571) 762-1289</strong> (por ejemplo, 41215)
+    %ul.thumbnails
+      %li.span4
+        %a.thumbnail{:href => 'va_spanish.png'}
           %img.thumbnail{:src => 'va_spanish.png'}
 
   %br
   %br
-  %dt
+.row
+  .span12
     %h3
       %a{:href => 'http://www.charlottesville.org/index.aspx?page=661', :target => '_blank'} Charlottesville Area Transit
       &mdash; Charlottesville, VA
     %br
-    %dt For English
-    %dd Call or text the bus stop number to <strong>(434) 207-2665</strong> (example 11332)
-    %ul.media-grid
+.row
+  .span5
+    %h4 For English
+    %p Call or text the bus stop number to <strong>(434) 207-2665</strong> (example 11332)
+    %ul.thumbnails
       %li
-        %a{:href => 'char_english.png'}
+        %a.thumbnail{:href => 'char_english.png'}
           %img.thumbnail{:src => 'char_english.png'}
-    %br
-    %dt For Spanish
-    %dd Llame o de texto el número de la parada de autobús <strong>(434) 207-2666</strong> (por ejemplo, 11332)
-    %ul.media-grid
+  .span6
+    %h4 For Spanish
+    %p Llame o de texto el número de la parada de autobús <strong>(434) 207-2666</strong> (por ejemplo, 11332)
+    %ul.thumbnails
       %li
-        %a{:href => 'char_spanish.png'}
+        %a.thumbnail{:href => 'char_spanish.png'}
           %img.thumbnail{:src => 'char_spanish.png'}
 
-  %br
-  %br
-  %dt
+.row
+  .span12
     %h3
       %a{:href => 'http://www.santaclaritatransit.com', :target => 'blank'} Santa Clarita Transit
       &mdash; City of Santa Clarita, CA
     %br
-    %dt For English
-    %dd Call or text the bus stop number to <strong>(661) 206-2567</strong> (example 10279)
-    %ul.media-grid
+.row
+  .span5
+    %h4 For English
+    %p Call or text the bus stop number to <strong>(661) 206-2567</strong> (example 10279)
+    %ul.thumbnails
       %li
-        %a{:href => 'sc_english.png'}
+        %a.thumbnail{:href => 'sc_english.png'}
           %img.thumbnail{:src => 'sc_english.png'}
     %br
-    %dt For Spanish
-    %dd Llame o de texto el número de la parada de autobús <strong>(661) 206-2572</strong> (por ejemplo, 10279)
-    %ul.media-grid
+  .span6
+    %h4 For Spanish
+    %p Llame o de texto el número de la parada de autobús <strong>(661) 206-2572</strong> (por ejemplo, 10279)
+    %ul.thumbnails
       %li
-        %a{:href => 'sc_spanish.png'}
+        %a.thumbnail{:href => 'sc_spanish.png'}
           %img.thumbnail{:src => 'sc_spanish.png'}
-
 
 %br
 %br
 .row
-  .span16
+  .span12
     %h2 Voice and SMS powered by:
     %a{:href => 'http://www.tropo.com', :target => '_blank'}
       %img{:src => 'Tropo-Horiz.png'}/
