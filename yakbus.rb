@@ -13,6 +13,10 @@ set :spanish_va, ENV['SPANISH_VA']
 set :spanish_char, ENV['SPANISH_CHAR']
 set :tri_phone, ENV['TRI_PHONE']
 
+configure :production do
+    require 'newrelic_rpm'
+end
+
 use Rack::Session::Pool
 
 post '/index.json' do

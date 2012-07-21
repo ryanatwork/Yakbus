@@ -27,6 +27,7 @@ GEM
     multi_json (1.0.4)
     multi_xml (0.4.1)
     multipart-post (1.1.4)
+    newrelic_rpm (3.4.0.1)
     patron (0.4.17)
     rack (1.4.1)
     rack-protection (1.2.0)
@@ -71,6 +72,7 @@ DEPENDENCIES
   connexionz
   haml
   json
+  newrelic_rpm
   rack-test
   rake
   rspec

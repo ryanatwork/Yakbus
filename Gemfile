@@ -5,6 +5,7 @@ gem 'thin'
 
 gem 'connexionz'
 gem 'haml'
+gem 'newrelic_rpm'
 gem 'json'
 gem 'rake'
 gem 'tropo-webapi-ruby'
