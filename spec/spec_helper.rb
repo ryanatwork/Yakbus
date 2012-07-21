@@ -1,5 +1,7 @@
-require 'simplecov'
-SimpleCov.start
+unless ENV['CI']
+  require 'simplecov'
+  SimpleCov.start
+end
 
 require File.join(File.dirname(__FILE__), '..', 'yakbus.rb')
 
